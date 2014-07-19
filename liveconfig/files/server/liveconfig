@@ -1,0 +1,14 @@
+{%- set config = salt['pillar.get']('liveconfig:lookup:server:config:liveconfig:sections', [])|sort -%}
+
+{%- for s in config -%}
+{{ '\n# ' ~ s.name|default('(No section name provided)') }}
+  {%- for k, v in s|dictsort if k != 'name' -%}
+    {%- if v is not string -%}
+      {%- for i in v %}
+{{ k }} = {{ i }}
+      {%- endfor -%}
+    {%- else %}
+{{ k }} = {{ v }}
+    {%- endif -%}
+  {%- endfor %}
+{% endfor -%}

@@ -1,0 +1,29 @@
+{% load_yaml as rawmap %}
+Debian:
+  repo:
+    url: http://repo.liveconfig.com/debian/
+    dist: main
+  server:
+    pkgs:
+      - name: liveconfig
+        debconf:
+          'liveconfig/password':
+            type: string
+            value: '798j-8eo1WujGBY_v71RfLNkDJKE2mua'
+          'liveconfig/licensekey':
+            type: string
+            value: EK9N7-HFDPV-N2YPT
+          'liveconfig/remove_database':
+            type: boolean
+            value: True
+    service: {}
+    config:
+      manage:
+        - liveconfig
+      liveconfig: {}
+    sqlite_db: {}
+  client:
+    pkgs:
+      - lcclient
+    service: {}
+{% endload %}

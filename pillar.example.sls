@@ -1,5 +1,6 @@
 liveconfig:
   lookup:
+    licensekey: EK9N7-HFDPV-TEST
     server:
       config:
         liveconfig:

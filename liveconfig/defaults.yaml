@@ -9,10 +9,13 @@ Debian:
         debconf:
           'liveconfig/password':
             type: string
-            value: '798j-8eo1WujGBY_v71RfLNkDJKE2mua'
+            value: '' {# #"{{ salt['pillar.get']('liveconfig:lookup:server:adminpwd', '798j-8eo1WujGBY_v71RfLNkDJKE2mua') }}" #}
+          'liveconfig/password-again':
+            type: string
+            value: '' {# #"{{ salt['pillar.get']('liveconfig:lookup:server:adminpwd', '798j-8eo1WujGBY_v71RfLNkDJKE2mua') }}" #}
           'liveconfig/licensekey':
             type: string
-            value: EK9N7-HFDPV-N2YPT
+            value: {{ salt['pillar.get']('liveconfig:lookup:licensekey', 'EK9N7-HFDPV-TEST') }}
           'liveconfig/remove_database':
             type: boolean
             value: True

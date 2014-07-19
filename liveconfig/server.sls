@@ -51,3 +51,12 @@ server_main_config:
     - watch_in:
       - service: lc_server
 {% endif %}
+
+activate_license:
+  cmd:
+    - run
+    - name: LCLICENSEKEY='{{ salt['pillar.get']('liveconfig:lookup:licensekey', 'EK9N7-HFDPV-TEST') }}' /usr/sbin/liveconfig --activate
+    - user: root
+    - unless: test -f /etc/liveconfig/liveconfig.key
+    - watch_in:
+      - service: lc_server

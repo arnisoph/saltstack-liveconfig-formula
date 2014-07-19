@@ -19,11 +19,15 @@ Debian:
     service: {}
     config:
       manage:
-        - liveconfig
-      liveconfig: {}
+        - main
+      main: {}
     sqlite_db: {}
   client:
     pkgs:
       - lcclient
     service: {}
+    config:
+      manage:
+        - main
+      main: {}
 {% endload %}

@@ -7,9 +7,9 @@ include:
   - liveconfig
 
 {% if salt['grains.get']('os') in ['Ubuntu', 'Debian'] %}
-  {% for p in datamap.server.pkgs|default({}) %}
+  {% for p in datamap.client.pkgs|default({}) %}
     {% if 'debconf' in p %}
-lc_server_debconf_{{ p.name }}:
+lc_client_debconf_{{ p.name }}:
   debconf:
     - set
     - name: {{ p.name }}
@@ -20,26 +20,21 @@ lc_server_debconf_{{ p.name }}:
   {% endfor %}
 {% endif %}
 
-lc_server:
+lc_client:
   pkg:
     - installed
     - pkgs:
-{% for p in datamap.server.pkgs|default({}) %}
+{% for p in datamap.client.pkgs|default({}) %}
       - {{ p.name }}
 {% endfor %}
   service:
-    - {{ datamap.server.service.ensure|default('running') }}
-    - name: {{ datamap.server.service.name|default('liveconfig') }}
-    - enable: {{ datamap.server.service.enable|default(True) }}
+    - {{ datamap.client.service.ensure|default('running') }}
+    - name: {{ datamap.client.service.name|default('liveconfig') }}
+    - enable: {{ datamap.client.service.enable|default(True) }}
 
-db_sqlite:
-  file:
-    - {{ datamap.server.sqlite_db.ensure|default('absent') }}
-    - name: {{ datamap.server.sqlite_db.path|default('/var/lib/liveconfig/liveconfig.db') }}
-
-{% if 'main' in datamap.server.config.manage|default([]) %}
-  {% set clc = datamap.server.config.main|default({}) %}
-server_main_config:
+{% if 'main' in datamap.client.config.manage|default([]) %}
+  {% set clc = datamap.client.config.main|default({}) %}
+client_main_config:
   file:
     - managed
     - name: {{ clc.path|default('/etc/liveconfig/liveconfig.conf') }}
@@ -49,5 +44,5 @@ server_main_config:
     - mode: {{ clc.mode|default(600) }}
     - template: jinja
     - watch_in:
-      - service: lc_server
+      - service: lc_client
 {% endif %}

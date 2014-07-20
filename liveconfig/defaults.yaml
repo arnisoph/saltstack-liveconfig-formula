@@ -27,7 +27,7 @@ Debian:
     sqlite_db: {}
   client:
     pkgs:
-      - lcclient
+      - name: lcclient
     service: {}
     config:
       manage:

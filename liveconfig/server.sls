@@ -48,6 +48,8 @@ server_main_config:
     - group: {{ clc_group|default('root') }}
     - mode: {{ clc.mode|default(600) }}
     - template: jinja
+    - context:
+      comp: server
     - watch_in:
       - service: lc_server
 {% endif %}

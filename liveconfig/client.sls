@@ -29,7 +29,7 @@ lc_client:
 {% endfor %}
   service:
     - {{ datamap.client.service.ensure|default('running') }}
-    - name: {{ datamap.client.service.name|default('liveconfig') }}
+    - name: {{ datamap.client.service.name|default('lcclient') }}
     - enable: {{ datamap.client.service.enable|default(True) }}
 
 {% if 'main' in datamap.client.config.manage|default([]) %}
@@ -37,12 +37,23 @@ lc_client:
 client_main_config:
   file:
     - managed
-    - name: {{ clc.path|default('/etc/liveconfig/liveconfig.conf') }}
+    - name: {{ clc.path|default('/etc/liveconfig/lcclient.conf') }}
     - source: {{ clc.template_path|default('salt://liveconfig/files/main') }}
     - user: {{ clc.user|default('root') }}
     - group: {{ clc_group|default('root') }}
     - mode: {{ clc.mode|default(600) }}
     - template: jinja
+    - context:
+      comp: client
     - watch_in:
       - service: lc_client
 {% endif %}
+
+activate_license:
+  cmd:
+    - run
+    - name: LCLICENSEKEY='{{ salt['pillar.get']('liveconfig:lookup:licensekey', 'EK9N7-HFDPV-TEST') }}' /usr/sbin/lcclient --activate
+    - user: root
+    - unless: test -f /etc/liveconfig/lcclient.key
+    - watch_in:
+      - service: lc_client

@@ -28,6 +28,13 @@ Debian:
   client:
     pkgs:
       - name: lcclient
+        debconf:
+          #'lcclient/server':
+          #  type: string
+          #  value: ''
+          'lcclient/hostid':
+            type: string
+            value: '{{ salt['grains.get']('fqdn') }}'
     service: {}
     config:
       manage:

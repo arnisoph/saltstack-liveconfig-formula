@@ -12,7 +12,7 @@ NOTICE BEFORE YOU USE
 TODO
 ----
 
-* manage lua dir
+None
 
 Instructions
 ------------
@@ -36,6 +36,10 @@ Installs the LiveConfig software repository
 ``liveconfig.client``
 ~~~~~~~~~~~~~~~~~~~~~
 Setup and configure a LiveConfig client
+
+``liveconfig.lua``
+~~~~~~~~~~~~~~~~~~
+Manage LUA directory of LiveConfig
 
 ``liveconfig.server``
 ~~~~~~~~~~~~~~~~~~~~~

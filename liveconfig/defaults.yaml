@@ -40,4 +40,6 @@ Debian:
       manage:
         - main
       main: {}
+  lua:
+    path: /usr/lib/liveconfig/lua
 {% endload %}

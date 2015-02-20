@@ -57,3 +57,14 @@ activate_license:
     - unless: test -f /etc/liveconfig/lcclient.key
     - watch_in:
       - service: lc_client
+
+{% if datamap.lua.manage|default(False) %}
+lua_dir:
+  file:
+    - recurse
+    - name: {{ datamap.lua.path }}
+    - source: {{ datamap.lua.source|default('salt://liveconfig/files/lua') }}
+    - user: root
+    - watch_in:
+      - service: lc_client
+{% endif %}

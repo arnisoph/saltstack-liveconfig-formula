@@ -37,10 +37,6 @@ Installs the LiveConfig software repository
 ~~~~~~~~~~~~~~~~~~~~~
 Setup and configure a LiveConfig client
 
-``liveconfig.lua``
-~~~~~~~~~~~~~~~~~~
-Manage LUA directory of LiveConfig
-
 ``liveconfig.server``
 ~~~~~~~~~~~~~~~~~~~~~
 Setup and configure a LiveConfig server

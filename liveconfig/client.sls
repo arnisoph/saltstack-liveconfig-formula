@@ -23,10 +23,7 @@ lc_client_debconf_{{ p.name }}:
 lc_client:
   pkg:
     - installed
-    - pkgs:
-{% for p in datamap.client.pkgs|default({}) %}
-      - {{ p.name }}
-{% endfor %}
+    - pkgs: {{ datamap.client.pkgs|default({}) }}
   service:
     - {{ datamap.client.service.ensure|default('running') }}
     - name: {{ datamap.client.service.name|default('lcclient') }}

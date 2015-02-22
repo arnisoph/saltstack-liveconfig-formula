@@ -23,10 +23,7 @@ lc_server_debconf_{{ p.name }}:
 lc_server:
   pkg:
     - installed
-    - pkgs:
-{% for p in datamap.server.pkgs|default({}) %}
-      - {{ p.name }}
-{% endfor %}
+    - pkgs: {{ datamap.server.pkgs|default({}) }}
   service:
     - {{ datamap.server.service.ensure|default('running') }}
     - name: {{ datamap.server.service.name|default('liveconfig') }}

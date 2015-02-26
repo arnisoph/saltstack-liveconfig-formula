@@ -14,7 +14,7 @@ lc_client_debconf_{{ p.name }}:
     - set
     - name: {{ p.name }}
     - data:
-        {% for k, v in p.debconf.items() %}{{ k }}: {{ v }}
+        {% for k, v in p.debconf|dictsort %}{{ k }}: {{ v }}
         {% endfor %}
     {% endif %}
   {% endfor %}
@@ -23,7 +23,10 @@ lc_client_debconf_{{ p.name }}:
 lc_client:
   pkg:
     - installed
-    - pkgs: {{ datamap.client.pkgs|default({}) }}
+    - pkgs:
+{% for p in datamap.client.pkgs|default({}) %}
+      - {{ p.name }}
+{% endfor %}
   service:
     - {{ datamap.client.service.ensure|default('running') }}
     - name: {{ datamap.client.service.name|default('lcclient') }}

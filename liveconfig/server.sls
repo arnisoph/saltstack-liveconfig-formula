@@ -14,7 +14,7 @@ lc_server_debconf_{{ p.name }}:
     - set
     - name: {{ p.name }}
     - data:
-        {% for k, v in p.debconf.items() %}{{ k }}: {{ v }}
+        {% for k, v in p.debconf|dictsort %}{{ k }}: {{ v }}
         {% endfor %}
     {% endif %}
   {% endfor %}
@@ -23,7 +23,9 @@ lc_server_debconf_{{ p.name }}:
 lc_server:
   pkg:
     - installed
-    - pkgs: {{ datamap.server.pkgs|default({}) }}
+{% for p in datamap.server.pkgs|default({}) %}
+      - {{ p.name }}
+{% endfor %}
   service:
     - {{ datamap.server.service.ensure|default('running') }}
     - name: {{ datamap.server.service.name|default('liveconfig') }}

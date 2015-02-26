@@ -23,6 +23,7 @@ lc_server_debconf_{{ p.name }}:
 lc_server:
   pkg:
     - installed
+    - pkgs:
 {% for p in datamap.server.pkgs|default({}) %}
       - {{ p.name }}
 {% endfor %}
